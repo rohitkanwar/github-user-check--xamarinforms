@@ -5,6 +5,9 @@ using System.Text;
 
 using Xamarin.Forms;
 
+using FreshMvvm;
+using GithubUserCheck;
+
 namespace GithubUserCheck
 {
     public partial class App : Application
@@ -13,7 +16,11 @@ namespace GithubUserCheck
         {
             InitializeComponent();
 
-            MainPage = new GithubUserCheck.MainPage();
+            //MainPage = new GithubUserCheck.MainPage();
+
+            var page = FreshPageModelResolver.ResolvePageModel<SearchPageModel>(null);
+            var basicNavContainer = new FreshNavigationContainer(page);
+            MainPage = basicNavContainer;
         }
 
         protected override void OnStart()

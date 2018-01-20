@@ -7,9 +7,9 @@ using Xamarin.Forms;
 
 namespace GithubUserCheck
 {
-    public partial class MainPage : ContentPage
+    public partial class SearchPage : ContentPage
     {
-        public MainPage()
+        public SearchPage()
         {
             InitializeComponent();
         }
