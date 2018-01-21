@@ -5,9 +5,29 @@
              x:Class="GithubUserCheck.SearchPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding WelcomeText}"
+            <Label 
+                x:Name="WelcomeMsgLabel"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand" 
+                BackgroundColor="LightBlue"/>
+            <Label 
+                x:Name="UsernamePromptLabel"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand"
+                BackgroundColor="LightGreen"/>
+            <StackLayout
+                Orientation="Horizontal"
+                BackgroundColor="Yellow">
+                <Entry 
+                    x:Name="UsernameEntry"
+                    Text="{Binding Username}"
+                    BackgroundColor="Blue"/>
+                <Button 
+                    x:Name="SearchButton"
+                    IsEnabled="{Binding CanPerformSearch}"
+                    BackgroundColor="Green"
+                    />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

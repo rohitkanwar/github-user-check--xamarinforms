@@ -16,8 +16,6 @@ namespace GithubUserCheck
         {
             InitializeComponent();
 
-            //MainPage = new GithubUserCheck.MainPage();
-
             var page = FreshPageModelResolver.ResolvePageModel<SearchPageModel>(null);
             var basicNavContainer = new FreshNavigationContainer(page);
             MainPage = basicNavContainer;

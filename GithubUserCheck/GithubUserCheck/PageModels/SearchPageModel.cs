@@ -1,9 +1,12 @@
-﻿using System;
+﻿using GithubUserCheck.Constants;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace GithubUserCheck
 {
@@ -11,15 +14,14 @@ namespace GithubUserCheck
     {
         public override void Init(object initData)
         {
-            Debug.WriteLine("SearchPageModel: Init called.");
+            // Provide the View with a reference to this ViewModel:
+            ((SearchPage)CurrentPage).pageModel = this;
 
-            WelcomeText = "Sleeping. Zzzzz ....";
+            CanPerformSearch = false;
         }
 
         protected override void ViewIsAppearing(object sender, System.EventArgs e)
         {
-            Debug.WriteLine("SearchPageModel: ViewIsAppearing.");
-
             base.ViewIsAppearing(sender, e);
         }
 
@@ -28,15 +30,84 @@ namespace GithubUserCheck
             base.ViewIsDisappearing(sender, e);
         }
 
-        private string _welcomeText;
-        public string WelcomeText
+        public void PerformSearch()
         {
-            get { return _welcomeText; }
+            Debug.WriteLine("PerformSearch invoked. Username entered is: {0}", Username);
+
+
+
+        }
+
+        // Properties:
+
+        private string _username;
+        public string Username
+        {
+            get { return _username; }
             set
             {
-                _welcomeText = value;
-                RaisePropertyChanged("WelcomeText");
+                _username = value;
+
+                // Rohit: Commanding is not working; CanExecute is checked only once.
+                //SearchCommand. ChangeCanExecute();
+                SetCanPerformSearch();
             }
         }
+
+        // Can the user search at this time?
+        private bool _canPerformSearch;
+        public bool CanPerformSearch
+        {
+            get { return _canPerformSearch; }
+            set
+            {
+                _canPerformSearch = value;
+                RaisePropertyChanged("CanPerformSearch");
+            }
+        }
+
+        private void SetCanPerformSearch()
+        {
+            // TODO: Find out real constraints for github usernames, and implement those, if possible.
+            if (string.IsNullOrWhiteSpace(Username))
+            {
+                CanPerformSearch = false;
+            }
+            else
+            {
+                CanPerformSearch = true;
+            }
+        }
+
+
+
+
+        /// TODO: Delete Commands section if not being used.
+        // Commands
+
+        //public Command SearchCommand
+        //{
+        //    get
+        //    {
+        //        return new Command(() => SearchForGithubUser(), () => CanSearchForGithubUser());
+        //    }
+        //}
+
+        //private void SearchForGithubUser()
+        //{
+        //    Debug.WriteLine("method SearchForGithubUser invoked.");
+        //}
+
+        //private bool CanSearchForGithubUser()
+        //{
+        //    Debug.WriteLine("method CanSearchForGithubUser invoked.");
+        //    bool isValidInput = false;
+        //    // TODO: Check real constraints for a valid github username, and implement those
+        //    if (!string.IsNullOrWhiteSpace(Username))
+        //    {
+        //        isValidInput = true;
+        //    }
+        //    return isValidInput;
+        //}
     }
 }
