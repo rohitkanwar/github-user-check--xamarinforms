@@ -7,6 +7,7 @@ using Xamarin.Forms;
 
 using FreshMvvm;
 using GithubUserCheck;
+using GithubUserCheck.ServiceAccessLayer;
 
 namespace GithubUserCheck
 {
@@ -23,17 +24,19 @@ namespace GithubUserCheck
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            // The app is starting.
         }
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+            // The app is going to the background.
+
+            NetworkInfo.DisposeResources();
         }
 
         protected override void OnResume()
         {
-            // Handle when your app resumes
+            // The app is resuming after being sent to the background.
         }
     }
 }

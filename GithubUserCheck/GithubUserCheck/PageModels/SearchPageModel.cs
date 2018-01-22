@@ -1,4 +1,6 @@
 ﻿using GithubUserCheck.Constants;
+using GithubUserCheck.DataLayer;
+using GithubUserCheck.ServiceAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,6 +14,8 @@ namespace GithubUserCheck
 {
     public class SearchPageModel : FreshMvvm.FreshBasePageModel
     {
+        private NetworkManager networkManager;
+
         public override void Init(object initData)
         {
             // Provide the View with a reference to this ViewModel:
@@ -30,12 +34,36 @@ namespace GithubUserCheck
             base.ViewIsDisappearing(sender, e);
         }
 
-        public void PerformSearch()
+        public void TryPerformSearch()
         {
-            Debug.WriteLine("PerformSearch invoked. Username entered is: {0}", Username);
+            if (NetworkInfo.IsConnected())
+            {
+                PerformSearch();
+            }
+            else
+            {
+                Debug.WriteLine("TryPerformSearch : Not connected.");
 
+                // TODO: Inform the user that connection is not there.
+            }
+        }
 
+        private async void PerformSearch()
+        {
+            // TODO: Indicate network op in progress.
 
+            bool dataRetrieved = await Task.Run<bool>(() => NetworkManager.Instance.GetUserAndReposData(Username));
+            
+            // TODO: Indicate network op complete.
+
+            if (dataRetrieved)
+            {
+                Debug.WriteLine("Successfully got github user data. Id = {0}, CreatedAt = {1}", Data.currentUser.Id, Data.currentUser.CreatedAt);
+            }
+            else
+            {
+                Debug.WriteLine("Failed to get github user data.");
+            }
         }
 
         // Properties:
@@ -48,8 +76,9 @@ namespace GithubUserCheck
             {
                 _username = value;
 
-                // Rohit: Commanding is not working; CanExecute is checked only once.
-                //SearchCommand. ChangeCanExecute();
+                // Rohit: Commanding is not working; the CanExecute delegate is evaluated only once, 
+                // even though we call ChangeCanExecute here:
+                //SearchCommand.ChangeCanExecute();
                 SetCanPerformSearch();
             }
         }
@@ -82,7 +111,7 @@ namespace GithubUserCheck
 
 
 
-        /// TODO: Delete Commands section if not being used.
+        // Rohit: Commanding is not working; the CanExecute delegate is invoked only once.
         // Commands
 
         //public Command SearchCommand
@@ -102,7 +131,7 @@ namespace GithubUserCheck
         //{
         //    Debug.WriteLine("method CanSearchForGithubUser invoked.");
         //    bool isValidInput = false;
-        //    // TODO: Check real constraints for a valid github username, and implement those
+        //
         //    if (!string.IsNullOrWhiteSpace(Username))
         //    {
         //        isValidInput = true;

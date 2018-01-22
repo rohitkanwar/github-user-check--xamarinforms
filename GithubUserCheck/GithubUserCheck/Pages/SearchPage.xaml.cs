@@ -20,7 +20,7 @@ namespace GithubUserCheck
             InitializeComponent();
 
             // Set those UI strings that do not change (and therefore, do not require data binding):
-            WelcomeMsgLabel.Text = AppStrings.Search.WelcomeText;
+            //WelcomeMsgLabel.Text = AppStrings.Search.WelcomeText;
             UsernamePromptLabel.Text = AppStrings.Search.UsernamePromptText;
             UsernameEntry.Placeholder = AppStrings.Search.UsernamePlaceholderText;
             SearchButton.Text = AppStrings.Search.SearchButtonText;
@@ -33,7 +33,7 @@ namespace GithubUserCheck
             // Do not process event; just pass it to ViewModel.
             if (pageModel != null)
             {
-                pageModel.PerformSearch();
+                pageModel.TryPerformSearch();
             }
         }
     }

@@ -4,29 +4,31 @@
              xmlns:local="clr-namespace:GithubUserCheck"
              x:Class="GithubUserCheck.SearchPage">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout
+            VerticalOptions="Start"
+            Margin="10,50,10,0">
+            <!--
             <Label 
                 x:Name="WelcomeMsgLabel"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" 
                 BackgroundColor="LightBlue"/>
+            -->
             <Label 
                 x:Name="UsernamePromptLabel"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
-                BackgroundColor="LightGreen"/>
+                FontSize="20"
+                />
             <StackLayout
-                Orientation="Horizontal"
-                BackgroundColor="Yellow">
+                HorizontalOptions="CenterAndExpand"                
+                Orientation="Horizontal">
                 <Entry 
                     x:Name="UsernameEntry"
-                    Text="{Binding Username}"
-                    BackgroundColor="Blue"/>
+                    Text="{Binding Username}"/>
                 <Button 
                     x:Name="SearchButton"
-                    IsEnabled="{Binding CanPerformSearch}"
-                    BackgroundColor="Green"
-                    />
+                    IsEnabled="{Binding CanPerformSearch}"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
