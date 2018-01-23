@@ -1,40 +1,4 @@
+
+* Resolve error regarding Resource Dictionary, and use this converter:
 IsEnabled="{Binding IsNetworkOpInProgress, Converter={StaticResource booleanToInverseBooleanConverter}, Mode=OneWay}"
 
-### Repo Detail page
-- Display repo page in webview.
-
-### Search Page
-- Disable UI during network op.
-
-
-### Profile Page
-- Display basic user stats
-  - repos
-  ? gists
-  ? followers
-  ? following
-  
-? For me, repo count should is 1.
-
-- Display user pic
-- User profile is displayed beautifully.
-- An "interesting" line for the user, if available.
-- Good aesthetics in ListView
-- On click, go to next screen.
-
-
-### Aesthetics
-- Test with Nougat emulator
-- Restrict app to Portrait?
-- Good Material look and feel on Android 4.x and 5+.
-
-
-### Networking
-
-# User data:
- - Handle status 404
-
-
-
-### Other
-- Remove and Sort usings.
