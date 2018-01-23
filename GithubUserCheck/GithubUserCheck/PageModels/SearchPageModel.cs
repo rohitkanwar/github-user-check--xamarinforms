@@ -70,7 +70,18 @@ namespace GithubUserCheck
                 Debug.WriteLine("Failed to get user and repos data.");
 
                 // Inform the user of the error:
-                await CoreMethods.DisplayAlert("Error", "Sorry, there was a problem. Please try again later.", "OK");
+
+                // What was the cause of the error?
+                if (Data.mostRecentServiceAccessResult == AppConstants.ServiceAccessResult.NotFoundError)
+                {
+                    // The error occured due to a 404 "Not Found" status returned by the API.
+                    await CoreMethods.DisplayAlert("User Not Found", "Please try a different user.", "OK");
+                }
+                else
+                {
+                    // The error occured due to some other reason.
+                    await CoreMethods.DisplayAlert("Error", "Sorry, there was a problem. Please try again later.", "OK");
+                }
             }
         }
 

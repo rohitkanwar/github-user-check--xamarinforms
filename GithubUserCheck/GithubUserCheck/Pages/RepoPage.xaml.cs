@@ -25,5 +25,15 @@ namespace GithubUserCheck.Pages
         {
             RepoWebView.Source = url;
         }
+
+        void webOnNavigating(object sender, WebNavigatingEventArgs e)
+        {
+            pageModel.WebViewNavigationStarted();
+        }
+
+        void webOnEndNavigating(object sender, WebNavigatedEventArgs e)
+        {
+            pageModel.WebViewNavigationComplete();
+        }
     }
 }

@@ -20,5 +20,14 @@ namespace GithubUserCheck.Constants
             //public static string UserDetailsTemplate = "/users/{0}";
             //public static string RepoListTemplate = "/users/{user}/repos";
         }
+
+        public static class ServiceAccessResult
+        {
+            public static int Success = 0;
+            public static int NotFoundError = 1;
+            public static int OtherError = 2;
+            public static int Unknown = 3;
+        }
+
     }
 }

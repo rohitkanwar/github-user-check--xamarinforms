@@ -185,14 +185,14 @@ namespace GithubUserCheck.PageModels
 
         private async void HandleRepoSelection()
         {
-            // Use internal web browser:
-            await CoreMethods.PushPageModel<RepoPageModel>(_selectedRepo.Id, false, true);
+            //// Use internal web browser:
+            //await CoreMethods.PushPageModel<RepoPageModel>(_selectedRepo.Id, false, true);
 
             // Use external web browser app:
-            //await Task.Run(() =>
-            //{
-            //    Device.OpenUri(new Uri(SelectedRepo.HtmlUrl));
-            //});
+            await Task.Run(() =>
+            {
+                Device.OpenUri(new Uri(SelectedRepo.HtmlUrl));
+            });
 
         }
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using GithubUserCheck.ResponseModels;
+using GithubUserCheck.Constants;
 
 namespace GithubUserCheck.DataLayer
 {
@@ -15,5 +16,8 @@ namespace GithubUserCheck.DataLayer
     {
         public static User currentUser;
         public static List<Repo> currentUserRepos;
+
+        // Ugly hack :)
+        public static int mostRecentServiceAccessResult = AppConstants.ServiceAccessResult.Success;
     }
 }

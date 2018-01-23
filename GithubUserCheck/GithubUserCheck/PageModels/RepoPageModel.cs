@@ -4,6 +4,7 @@ using GithubUserCheck.Pages;
 using GithubUserCheck.ResponseModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace GithubUserCheck.PageModels
             // Provide the View with a reference to this ViewModel:
             ((RepoPage)CurrentPage).pageModel = this;
 
-            // TODO: Accept repo id as parameter
+            // Accept repo id as parameter
             if ((initData != null) && (initData is long))
             {
                 selectedRepoId = (long)initData;
@@ -65,6 +66,7 @@ namespace GithubUserCheck.PageModels
 
                 Name = selectedRepo.Name;
                 HtmlUrl = selectedRepo.HtmlUrl;
+                IsWebViewNavigating = true;
             }
             else
             {
@@ -74,8 +76,6 @@ namespace GithubUserCheck.PageModels
                 PageTitle = AppStrings.RepoDetails.UnknownRepo;
                 ((RepoPage)CurrentPage).Title = PageTitle;
             }
-
-            //((RepoPage)CurrentPage).DisplayWebPage(HtmlUrl);
         }
 
         // Properties
@@ -113,5 +113,35 @@ namespace GithubUserCheck.PageModels
             }
         }
 
+        private bool _isWebViewNavigating;
+        public bool IsWebViewNavigating
+        {
+            get { return _isWebViewNavigating; }
+            set
+            {
+                _isWebViewNavigating = value;
+                RaisePropertyChanged("IsWebViewNavigating");
+            }
+        }
+
+        public void WebViewNavigationStarted()
+        {
+            Debug.WriteLine("RepoPage: WebViewNavigationStarted");
+
+            IsWebViewNavigating = true;
+
+            //PageTitle = "Please wait ...";
+            //((RepoPage)CurrentPage).Title = PageTitle;
+        }
+
+        public void WebViewNavigationComplete()
+        {
+            Debug.WriteLine("RepoPage: WebViewNavigationComplete");
+
+            IsWebViewNavigating = false;
+
+            //PageTitle = selectedRepo.FullName;
+            //((RepoPage)CurrentPage).Title = PageTitle;
+        }
     }
 }

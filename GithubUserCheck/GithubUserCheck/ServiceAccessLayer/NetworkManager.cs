@@ -76,6 +76,7 @@ namespace GithubUserCheck.ServiceAccessLayer
         private async Task<bool> GetUserData(string username)
         {
             bool success = false;
+            Data.mostRecentServiceAccessResult = AppConstants.ServiceAccessResult.Unknown;
 
             Debug.WriteLine("GetUserData called.");
 
@@ -122,8 +123,8 @@ namespace GithubUserCheck.ServiceAccessLayer
 
                     Debug.WriteLine("GetUserData: Received status code 404");
 
-                    // TODO: Inform the user that no such github user was found.
                     success = false;
+                    Data.mostRecentServiceAccessResult = AppConstants.ServiceAccessResult.NotFoundError;
                 }
                 else
                 {
@@ -195,6 +196,7 @@ namespace GithubUserCheck.ServiceAccessLayer
         private async Task<bool> GetReposData(string username)
         {
             bool success = false;
+            Data.mostRecentServiceAccessResult = AppConstants.ServiceAccessResult.Unknown;
 
             Debug.WriteLine("GetReposData called.");
 
@@ -241,8 +243,8 @@ namespace GithubUserCheck.ServiceAccessLayer
 
                     Debug.WriteLine("GetReposData: Received status code 404");
 
-                    // TODO: Inform the user no such github user exists.
                     success = false;
+                    Data.mostRecentServiceAccessResult = AppConstants.ServiceAccessResult.NotFoundError;
                 }
                 else
                 {
