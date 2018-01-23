@@ -32,6 +32,7 @@ namespace GithubUserCheck.ServiceAccessLayer
         {
             client = new HttpClient();
             client.MaxResponseContentBufferSize = 1048576; // 1 MB
+            //client.DefaultRequestHeaders.Add("User-Agent", "rohitkanwar");
         }
 
         // Public static property to access an instance of this class.
@@ -59,10 +60,7 @@ namespace GithubUserCheck.ServiceAccessLayer
             userDataFound = await GetUserData(username);
             if (userDataFound)
             {
-                // TODO: Imple.
-                //reposDataFound = await GetReposData(username);
-                // TODO: remove hardcoding
-                reposDataFound = true;
+                reposDataFound = await GetReposData(username);
             }
 
             if ((userDataFound) && (reposDataFound))
@@ -82,10 +80,6 @@ namespace GithubUserCheck.ServiceAccessLayer
             Debug.WriteLine("GetUserData called.");
 
             string resourceUrlString = AppConstants.Urls.ServicesRoot + string.Format(AppConstants.Urls.UserDetailsTemplate, username);
-
-            // TODO: Delete hard-coding, and use the real API.
-            resourceUrlString = "http://www.rohitkanwar.net/temp/mock-github-api/users.php";
-
             Debug.WriteLine("GetUserData: URL string is: {0}", resourceUrlString);
 
             try
@@ -135,7 +129,9 @@ namespace GithubUserCheck.ServiceAccessLayer
                 {
                     // Some other error.
 
-                    Debug.WriteLine("GetUserData: Received error status code: {0}, reason: {1}", response.StatusCode, response.ReasonPhrase);
+                    string content = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine("GetUserData: Received error status code: {0}, content: {1}", response.StatusCode, content);
+
                     success = false;
                 }
             }
@@ -195,5 +191,78 @@ namespace GithubUserCheck.ServiceAccessLayer
 
         //    return success;
         //}
+
+        private async Task<bool> GetReposData(string username)
+        {
+            bool success = false;
+
+            Debug.WriteLine("GetReposData called.");
+
+            string resourceUrlString = AppConstants.Urls.ServicesRoot + string.Format(AppConstants.Urls.RepoListTemplate, username);
+            Debug.WriteLine("GetReposData: URL string is: {0}", resourceUrlString);
+
+            try
+            {
+                Uri uri = new Uri(resourceUrlString);
+
+                var response = await client.GetAsync(uri);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Debug.WriteLine("GetReposData: Received success status code");
+
+                    var content = await response.Content.ReadAsStringAsync();
+                    if (!string.IsNullOrWhiteSpace(content))
+                    {
+                        Debug.WriteLine("GetReposData: content length = {0}, content.Substring(0, 50) = {1}", content.Length, content.Substring(0, 50));
+
+                        userRepos = JsonConvert.DeserializeObject<List<Repo>>(content);
+
+                        if (userRepos != null)
+                        {
+                            // We successfully got the repos data.
+                            success = true;
+                        }
+                        else
+                        {
+                            // There was a response, but it could not be deserialized as expected.
+                            success = false;
+                        }
+                    }
+                    else
+                    {
+                        // The response did not have a message body.
+                        success = false;
+                    }
+                }
+                else if (response.StatusCode.Equals(System.Net.HttpStatusCode.NotFound))
+                {
+                    // 404 Not Found. Most probably, the user doesn't exist.
+
+                    Debug.WriteLine("GetReposData: Received status code 404");
+
+                    // TODO: Inform the user no such github user exists.
+                    success = false;
+                }
+                else
+                {
+                    // Some other error.
+
+                    string content = await response.Content.ReadAsStringAsync();
+                    Debug.WriteLine("GetReposData: Received error status code: {0}, content: {1}", response.StatusCode, content);
+
+                    success = false;
+                }
+            }
+            catch (Exception e)
+            {
+                // There was a problem using the web service.
+
+                Debug.WriteLine("GetReposData: Exception: Msg = {0}, \nStackTrace = {1}", e.Message, e.StackTrace);
+                success = false;
+            }
+
+            return success;
+        }
     }
 }

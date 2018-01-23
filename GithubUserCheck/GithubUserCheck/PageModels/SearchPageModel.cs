@@ -1,5 +1,6 @@
 ﻿using GithubUserCheck.Constants;
 using GithubUserCheck.DataLayer;
+using GithubUserCheck.PageModels;
 using GithubUserCheck.ServiceAccessLayer;
 using System;
 using System.Collections.Generic;
@@ -44,25 +45,30 @@ namespace GithubUserCheck
             {
                 Debug.WriteLine("TryPerformSearch : Not connected.");
 
-                // TODO: Inform the user that connection is not there.
+                // Inform the user that connection is not there.
+                ((SearchPage)CurrentPage).DisplayAlert("Not Connected", "Please enable WiFi or mobile data, and try again.", "OK");
             }
         }
 
         private async void PerformSearch()
         {
-            // TODO: Indicate network op in progress.
-
+            IsNetworkOpInProgress = true;
             bool dataRetrieved = await Task.Run<bool>(() => NetworkManager.Instance.GetUserAndReposData(Username));
-            
-            // TODO: Indicate network op complete.
+            IsNetworkOpInProgress = false;
 
             if (dataRetrieved)
             {
-                Debug.WriteLine("Successfully got github user data. Id = {0}, CreatedAt = {1}", Data.currentUser.Id, Data.currentUser.CreatedAt);
+                Debug.WriteLine("Successfully got github user and repos data. Login = {0}, CreatedAt = {1}, Repos.Count = {2}", Data.currentUser.Login, Data.currentUser.CreatedAt, Data.currentUserRepos.Count);
+                
+                // Go to the results page:
+                await CoreMethods.PushPageModel<ResultsPageModel>(true);
             }
             else
             {
-                Debug.WriteLine("Failed to get github user data.");
+                Debug.WriteLine("Failed to get user and repos data.");
+
+                // Inform the user of the error:
+                await CoreMethods.DisplayAlert("Error", "Sorry, there was a problem. Please try again later.", "OK");
             }
         }
 
@@ -108,6 +114,16 @@ namespace GithubUserCheck
             }
         }
 
+        private bool _isNetworkOpInProgress;
+        public bool IsNetworkOpInProgress
+        {
+            get { return _isNetworkOpInProgress; }
+            set
+            {
+                _isNetworkOpInProgress = value;
+                RaisePropertyChanged("IsNetworkOpInProgress");
+            }
+        }
 
 
 

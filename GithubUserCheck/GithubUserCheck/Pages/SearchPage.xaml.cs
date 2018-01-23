@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 
 using GithubUserCheck.Constants;
+using Xamarin.Forms.Xaml;
 
 namespace GithubUserCheck
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SearchPage : ContentPage
     {
-
         // A reference to the ViewModel:
         public SearchPageModel pageModel;
 

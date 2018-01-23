@@ -40,16 +40,25 @@
     </Compile>
     <Compile Include="Constants\AppConstants.cs" />
     <Compile Include="Constants\AppStrings.cs" />
+    <Compile Include="Converters\BooleanToInverseBooleanConverter.cs" />
     <Compile Include="DataLayer\Data.cs" />
-    <Compile Include="ResponseModels\User.cs" />
+    <Compile Include="PageModels\RepoPageModel.cs" />
+    <Compile Include="PageModels\ResultsPageModel.cs" />
+    <Compile Include="Pages\RepoPage.xaml.cs">
+      <DependentUpon>RepoPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ResultsPage.xaml.cs">
+      <DependentUpon>ResultsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs" />
     <Compile Include="Pages\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageModels\SearchPageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResponseModels\License.cs" />
-    <Compile Include="ResponseModels\Owner.cs" />
-    <Compile Include="ResponseModels\Repo.cs" />
+    <Compile Include="Models\License.cs" />
+    <Compile Include="Models\Owner.cs" />
+    <Compile Include="Models\Repo.cs" />
     <Compile Include="ServiceAccessLayer\NetworkInfo.cs" />
     <Compile Include="ServiceAccessLayer\NetworkManager.cs" />
   </ItemGroup>
@@ -93,7 +102,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Folder Include="ResponseModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\ResultsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\RepoPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.4.0.280\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.4.0.280\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />

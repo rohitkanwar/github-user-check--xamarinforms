@@ -10,9 +10,15 @@ namespace GithubUserCheck.Constants
     {
         public static class Urls
         {
-            public static string ServicesRoot = "https://api.github.com";
-            public static string UserDetailsTemplate = "/users/{0}";
-            public static string RepoListTemplate = "/users/{user}/repos";
+            // Rohit: We invoke our proxy web service which in turn invokes the GitHub API:
+            public static string ServicesRoot = "http://www.rohitkanwar.net/temp/mock-github-api";
+            public static string UserDetailsTemplate = "/users.php?user={0}";
+            public static string RepoListTemplate = "/repos.php?user={0}";
+
+            // Rohit: Directly accessing the GitHub API from the mobile app is not working.
+            //public static string ServicesRoot = "https://api.github.com";
+            //public static string UserDetailsTemplate = "/users/{0}";
+            //public static string RepoListTemplate = "/users/{user}/repos";
         }
     }
 }

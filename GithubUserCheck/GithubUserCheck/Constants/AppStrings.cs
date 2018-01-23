@@ -29,5 +29,18 @@ namespace GithubUserCheck.Constants
             public static string UsernamePlaceholderText = "GitHub Username";
             public static string SearchButtonText = "Check";
         }
+
+        public static class Results
+        {
+            public static string JoiningDateDescriptionTemplate = "Member since {0}";
+            public static string NoReposDescription = "No public repos.";
+            public static string SolitaryRepoDescription = "1 public repo.";
+            public static string NumReposDescriptionTemplate = "{0} public repos.";
+        }
+
+        public static class RepoDetails
+        {
+            public static string UnknownRepo = "Unknown Repo";
+        }
     }
 }

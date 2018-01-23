@@ -1,8 +1,39 @@
-### Search Page
+IsEnabled="{Binding IsNetworkOpInProgress, Converter={StaticResource booleanToInverseBooleanConverter}, Mode=OneWay}"
 
-- Username entered should be validated.
-- Validation success messages
-- Validation error messages
+### Repo Detail page
+- Display repo page in webview.
+
+### Search Page
+- Disable UI during network op.
+
+
+### Profile Page
+- Display basic user stats
+- LV of repos
+- Good aesthetics in ListView
+- CardView using FRame
+- Optimal sizing and placement of repos
+- On click, go to next screen.
+- No persistent highlighting on listview items.
+
+
+### Aesthetics
+- Test with Nougat emulator
+- Restrict app to Portrait?
+- Good Material look and feel on Android 4.x and 5+.
+
+
+
+
+
+
+
+### Networking
+
+# User data:
+ - Handle status 404
+
+
 
 ### Other
 - Remove and Sort usings.

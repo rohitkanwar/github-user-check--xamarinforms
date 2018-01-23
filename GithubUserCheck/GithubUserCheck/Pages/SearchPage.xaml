@@ -1,9 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:GithubUserCheck"
+             xmlns:local="clr-namespace:GithubUserCheck.Converters;assembly=GithubUserCheck"
              x:Class="GithubUserCheck.SearchPage">
     <ContentPage.Content>
+
+        <!--
+        <ContentPage.Resources>
+            <ResourceDictionary>
+                <local:BooleanToInverseBooleanConverter x:Key="booleanToInverseBooleanConverter" />
+            </ResourceDictionary>
+        </ContentPage.Resources>
+        -->
+        
+        
         <StackLayout
             VerticalOptions="Start"
             Margin="10,50,10,0">
@@ -30,6 +40,8 @@
                     x:Name="SearchButton"
                     IsEnabled="{Binding CanPerformSearch}"/>
             </StackLayout>
+            <ActivityIndicator 
+                IsRunning="{Binding IsNetworkOpInProgress}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
