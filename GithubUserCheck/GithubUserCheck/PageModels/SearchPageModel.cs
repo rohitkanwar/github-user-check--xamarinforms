@@ -15,19 +15,21 @@ namespace GithubUserCheck
 {
     public class SearchPageModel : FreshMvvm.FreshBasePageModel
     {
-        private NetworkManager networkManager;
-
         public override void Init(object initData)
         {
             // Provide the View with a reference to this ViewModel:
             ((SearchPage)CurrentPage).pageModel = this;
 
-            CanPerformSearch = false;
+            Username = "defunkt";
         }
 
         protected override void ViewIsAppearing(object sender, System.EventArgs e)
         {
             base.ViewIsAppearing(sender, e);
+
+            ((SearchPage)CurrentPage).Title = AppStrings.Search.PageTitle;
+
+            IsNetworkOpInProgress = false;
         }
 
         protected override void ViewIsDisappearing(object sender, System.EventArgs e)
@@ -89,7 +91,7 @@ namespace GithubUserCheck
             }
         }
 
-        // Can the user search at this time?
+        // Do we have a valid username with which to perform a search?
         private bool _canPerformSearch;
         public bool CanPerformSearch
         {
@@ -122,6 +124,23 @@ namespace GithubUserCheck
             {
                 _isNetworkOpInProgress = value;
                 RaisePropertyChanged("IsNetworkOpInProgress");
+                // Set the property which is supposed to be the opposite of thi property:
+                IsNewSearchAllowed = !_isNetworkOpInProgress;
+            }
+        }
+
+        // Rohit: This prperty will always have the opposite value of IsNetworkInProgress
+        // Ideally, this effect should have been achieved through the use of an IValueConverter.
+        // However, due to some strange reason, the compiler is not recognizing Resource Dictionaries 
+        // to be a part of the definition of a Page object, and so I am unable to use a converter in XAML code.
+        private bool _isNewSearchAllowed;
+        public bool IsNewSearchAllowed
+        {
+            get { return _isNewSearchAllowed; }
+            set
+            {
+                _isNewSearchAllowed = value;
+                RaisePropertyChanged("IsNewSearchAllowed");
             }
         }
 

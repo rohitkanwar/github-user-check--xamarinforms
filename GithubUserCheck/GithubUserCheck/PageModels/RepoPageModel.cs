@@ -13,13 +13,13 @@ namespace GithubUserCheck.PageModels
     public class RepoPageModel : FreshMvvm.FreshBasePageModel
     {
         // The id of the selected repo:
-        private int selectedRepoId;
+        private long selectedRepoId;
+
+        // An invalid repo id:
+        private const long InvalidRepoId = -1L;
 
         // The selected repo:
         private Repo selectedRepo;
-
-        // An invalid repo id:
-        private const int InvalidRepoId = -1;
 
         public override void Init(object initData)
         {
@@ -29,7 +29,7 @@ namespace GithubUserCheck.PageModels
             // TODO: Accept repo id as parameter
             if ((initData != null) && (initData is long))
             {
-                selectedRepoId = (int)initData;
+                selectedRepoId = (long)initData;
             }
             else
             {
@@ -61,7 +61,7 @@ namespace GithubUserCheck.PageModels
             {
                 // Set title to repo name
                 PageTitle = selectedRepo.FullName;
-                ((ResultsPage)CurrentPage).Title = PageTitle;
+                ((RepoPage)CurrentPage).Title = PageTitle;
 
                 Name = selectedRepo.Name;
                 HtmlUrl = selectedRepo.HtmlUrl;
@@ -72,8 +72,10 @@ namespace GithubUserCheck.PageModels
 
                 // Set a generic title:
                 PageTitle = AppStrings.RepoDetails.UnknownRepo;
-                ((ResultsPage)CurrentPage).Title = PageTitle;
+                ((RepoPage)CurrentPage).Title = PageTitle;
             }
+
+            //((RepoPage)CurrentPage).DisplayWebPage(HtmlUrl);
         }
 
         // Properties

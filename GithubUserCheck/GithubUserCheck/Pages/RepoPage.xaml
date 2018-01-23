@@ -4,9 +4,15 @@
              x:Class="GithubUserCheck.Pages.RepoPage">
     
     <ContentPage.Content>
+        <WebView
+            x:Name="RepoWebView"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            Source="{Binding HtmlUrl}" />
+        <!--
         <StackLayout
-            VerticalOptions="StartAndExpand"
-            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
             Orientation="Vertical"
             >
             <Label 
@@ -18,6 +24,7 @@
                 VerticalOptions="Center" 
                 HorizontalOptions="Center" />
         </StackLayout>
+        -->
     </ContentPage.Content>
     
 </ContentPage>

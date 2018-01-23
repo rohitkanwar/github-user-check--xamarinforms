@@ -42,6 +42,8 @@
     <Compile Include="Constants\AppStrings.cs" />
     <Compile Include="Converters\BooleanToInverseBooleanConverter.cs" />
     <Compile Include="DataLayer\Data.cs" />
+    <Compile Include="Models\Permissions.cs" />
+    <Compile Include="Models\Plan.cs" />
     <Compile Include="PageModels\RepoPageModel.cs" />
     <Compile Include="PageModels\ResultsPageModel.cs" />
     <Compile Include="Pages\RepoPage.xaml.cs">

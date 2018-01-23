@@ -3,8 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GithubUserCheck.App">
 	<Application.Resources>
+        <ResourceDictionary>
+		    <!-- Application resource dictionary -->
 
-		<!-- Application resource dictionary -->
+            <!-- Button colors -->
+            <Color x:Key="primaryButtonBackgroundColor">#0575F4</Color>
 
-	</Application.Resources>
+            <!-- Button Styles -->
+            <Style x:Key="primaryButtonStyle" TargetType="Button">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BackgroundColor" Value="{StaticResource primaryButtonBackgroundColor}" />
+            </Style>
+            
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

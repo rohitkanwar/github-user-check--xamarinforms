@@ -4,86 +4,109 @@
              x:Class="GithubUserCheck.Pages.ResultsPage">
     <ContentPage.Content>
 
-        <!--
         <StackLayout
-            Orientation="Horizontal"
+            Orientation="Vertical"
+            Margin="5,0"
             >
-            <BoxView x:Name="userAvatar"
-                Color="Gray"
-                VerticalOptions="Center"
-                WidthRequest="60"
-                HeightRequest="60"
-                />
-            <StackLayout
-                VerticalOptions="Center">
-                <Label
-                    TextColor="Black"
-                    FontAttributes="Bold"
-                    FontSize="16"
-                    Text="{Binding JoiningDateDescription}"
-                    />
-                <Label
-                    TextColor="Black"
-                    FontSize="14"
-                    Text="{Binding NumReposDescription}"
-                    Margin="0,0,0,0"
-                    />
-            </StackLayout>
-        </StackLayout>
-        -->
+            
+            <!-- User Profile -->
+            <Frame
+                HasShadow="True">
+                <StackLayout
+                    Orientation="Horizontal"
+                    >
+                    <Image
+                        VerticalOptions="Center"
+                        WidthRequest="80"
+                        HeightRequest="80"
+                        Aspect="AspectFill"
+                        Source="{Binding AvatarImageSource}"
+                        />
+                    <StackLayout
+                        VerticalOptions="Center"
+                        Orientation="Vertical"
+                        Margin="5,0,0,0">
+                        <Label
+                            TextColor="Black"
+                            FontSize="16"
+                            Text="{Binding JoiningDateDescription}"
+                            />
+                        <Label
+                            TextColor="Black"
+                            FontSize="16"
+                            Text="{Binding NumFollowersFollowingDescription}"
+                            Margin="0,0,0,0"
+                            />
+                        <Label
+                            TextColor="Black"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            Text="{Binding NumReposAndGistsDescription}"
+                            />
 
-        <ListView
-            x:Name="ReposList"
-            CachingStrategy="RecycleElement"
-            VerticalOptions="Start"
-            HorizontalOptions="FillAndExpand"
-            Margin="0,20,0,0"
-            ItemsSource="{Binding UserRepos}"
-            RowHeight="80"
-            SeparatorColor="Gray"
-            >
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <ContentView
-                            Padding="5">
-                            <StackLayout
-                                Orientation="Horizontal">
-                                <!--
-                                <BoxView x:Name="repoThumbnail"
-                                  Color="Gray"
-                                  VerticalOptions="Center"
-                                  WidthRequest="60"
-                                  HeightRequest="60"
-                                  />
-                                -->
-                                <StackLayout
-                                    VerticalOptions="Center">
-                                    <Label
-                                        TextColor="Black"
-                                        FontAttributes="Bold"
-                                        FontSize="16"
-                                        Text="{Binding Name}"
-                                        />
-                                    <Label
-                                        TextColor="Black"
-                                        FontSize="14"
-                                        Text="{Binding Description}"
-                                        LineBreakMode="TailTruncation"
-                                        Margin="0,0,0,0"
-                                        />
-                                    <Label
-                                        TextColor="Black"
-                                        FontSize="14"
-                                        Text="{Binding Language}"
-                                        Margin="0,0,0,0"
-                                        />
-                                </StackLayout>
-                            </StackLayout>
-                        </ContentView>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!-- List of Repos -->
+            <ListView
+                x:Name="ReposList"
+                CachingStrategy="RecycleElement"
+                VerticalOptions="StartAndExpand"
+                HorizontalOptions="FillAndExpand"
+                Margin="0,20,0,0"
+                ItemsSource="{Binding UserRepos}"
+                RowHeight="80"
+                SeparatorVisibility="None"
+                >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ContentView
+                                Padding="5">
+                                <Frame
+                                    HasShadow="True">
+                                    <StackLayout
+                                        Orientation="Horizontal">
+                                        <BoxView x:Name="repoThumbnail"
+                                            Color="Transparent"
+                                            VerticalOptions="Center"
+                                            WidthRequest="1"
+                                            HeightRequest="80"
+                                            />
+                                        <StackLayout
+                                            VerticalOptions="StartAndExpand">
+                                            <Label
+                                                Margin="0,-15,0,0"
+                                                VerticalOptions="Start"
+                                                TextColor="Black"
+                                                FontAttributes="Bold"
+                                                FontSize="16"
+                                                Text="{Binding Name}"
+                                                />
+                                            <Label
+                                                Margin="0,-5,0,0"
+                                                TextColor="Black"
+                                                FontSize="14"
+                                                Text="{Binding Description}"
+                                                LineBreakMode="TailTruncation"
+                                                />
+                                            <Label
+                                                VerticalOptions="End"
+                                                Margin="0,-5,0,0"
+                                                TextColor="Black"
+                                                FontAttributes="Italic"
+                                                FontSize="14"
+                                                Text="{Binding Language}"
+                                                />
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </ContentView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

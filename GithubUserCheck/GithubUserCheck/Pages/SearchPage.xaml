@@ -17,30 +17,29 @@
         <StackLayout
             VerticalOptions="Start"
             Margin="10,50,10,0">
-            <!--
-            <Label 
-                x:Name="WelcomeMsgLabel"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" 
-                BackgroundColor="LightBlue"/>
-            -->
             <Label 
                 x:Name="UsernamePromptLabel"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand"
-                FontSize="20"
+                FontSize="24"
                 />
             <StackLayout
+                Margin="0,10,0,0"
                 HorizontalOptions="CenterAndExpand"                
-                Orientation="Horizontal">
+                Orientation="Vertical"
+                IsEnabled="{Binding IsNewSearchAllowed}">
                 <Entry 
                     x:Name="UsernameEntry"
+                    WidthRequest="200"
                     Text="{Binding Username}"/>
                 <Button 
                     x:Name="SearchButton"
-                    IsEnabled="{Binding CanPerformSearch}"/>
+                    WidthRequest="200"
+                    Style="{StaticResource primaryButtonStyle}"
+                    IsEnabled="{Binding CanPerformSearch}" />
             </StackLayout>
             <ActivityIndicator 
+                Margin="0,10,0,0"
                 IsRunning="{Binding IsNetworkOpInProgress}" />
         </StackLayout>
     </ContentPage.Content>

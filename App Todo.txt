@@ -9,23 +9,24 @@ IsEnabled="{Binding IsNetworkOpInProgress, Converter={StaticResource booleanToIn
 
 ### Profile Page
 - Display basic user stats
-- LV of repos
+  - repos
+  ? gists
+  ? followers
+  ? following
+  
+? For me, repo count should is 1.
+
+- Display user pic
+- User profile is displayed beautifully.
+- An "interesting" line for the user, if available.
 - Good aesthetics in ListView
-- CardView using FRame
-- Optimal sizing and placement of repos
 - On click, go to next screen.
-- No persistent highlighting on listview items.
 
 
 ### Aesthetics
 - Test with Nougat emulator
 - Restrict app to Portrait?
 - Good Material look and feel on Android 4.x and 5+.
-
-
-
-
-
 
 
 ### Networking

@@ -20,5 +20,10 @@ namespace GithubUserCheck.Pages
         {
             InitializeComponent();
         }
+
+        public void DisplayWebPage(string url)
+        {
+            RepoWebView.Source = url;
+        }
     }
 }
